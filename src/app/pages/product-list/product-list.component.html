@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <header class="d-flex justify-content-between align">
+
+        <nav aria-label="breadcrumb mb-0" >
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+        </nav>
+    
+        <div class="form-group mb-0">
+            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Search...">
+        </div>
+    </header>
+    
+    <div class="row">
+        <div class="col-md-2 bg-light p-2">
+            <form action="">
+                <div class="form-check" *ngFor="let p of products">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
+                    Display value
+                  </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="" id="" value="checkedValue" checked>
+                    Display value
+                  </label>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-4 p-2" *ngFor="let p of products">
+              <app-product ></app-product>
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>
