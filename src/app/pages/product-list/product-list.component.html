@@ -9,17 +9,17 @@
         </nav>
 
         <div class="form-group mb-0">
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Search...">
+            <input type="text" class="form-control" placeholder="Search..." [formControl]="searchControl">
         </div>
     </header>
 
     <div class="row">
         <div class="col-md-2 bg-light p-2">
-            <form class="form" [formGroup]="productListForm" *ngIf="productListForm">
+            <form class="form" [formGroup]="productListFormGroup">
                 <label>Rating Filter</label>
-                <div class="form-check" *ngFor="let ratingObj of ratingFilter;">
+                <div class="form-check" formArrayName="rating" *ngFor="let ratingObj of ratingFilter; let i=index">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="" id="" value="ratingObj" checked>
+                        <input type="checkbox" [formControlName]="i" class="form-check-input">
                         {{ratingObj}}
                     </label>
                 </div>
@@ -27,13 +27,13 @@
                 <label>Stock Filter</label>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="" id="" value="checkedValue" checked>
+                        <input type="radio" class="form-check-input" formControlName="inStock" [value]="true" >
                         In stock
                     </label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="" id="" value="checkedValue" checked>
+                        <input type="radio" class="form-check-input" formControlName="inStock" [value]="false">
                         Out of stock
                     </label>
                 </div>
@@ -41,9 +41,14 @@
         </div>
         <div class="col-md-10">
             <div class="row">
-                <div class="col-md-4 p-2" *ngFor="let p of products">
-                    <app-product [product]=p></app-product>
-                </div>
+                <ng-container *ngIf="products$ | async as products">
+                    <div class="col-md-4 p-2" *ngFor="let p of products">
+                        <app-product [product]=p></app-product>
+                    </div>
+                    <div class="col-md-12" *ngIf="products.length === 0">
+                        No Data Found
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
