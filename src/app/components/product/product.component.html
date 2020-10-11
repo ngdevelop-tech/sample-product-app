@@ -6,6 +6,8 @@
         <p class="card-text">Price : {{product.price | currency: 'INR'}}</p>
         <p class="card-text">Rating : {{product.rating}}</p>
         <p class="card-text">{{product.in_stock ? 'In Stock':'Out Of Stock'}}</p>
-        <a [routerLink]="['/product',product.product_id]" class="btn btn-primary">View</a>
+        <a *ngIf="!trashView" [routerLink]="['/product',product.product_id]" class="btn btn-primary">View</a>
+        <button type="button" class="btn btn-primary" *ngIf="trashView" (click)="restore(product)">Restore</button>
+        <button type="button" class="btn btn-danger" *ngIf="trashView" (click)="remove(product)">Remove</button>
     </div>
 </div>

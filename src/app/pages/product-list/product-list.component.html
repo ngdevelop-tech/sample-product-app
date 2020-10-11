@@ -42,7 +42,7 @@
             <div class="row">
                 <ng-container *ngIf="products$ | async as products">
                     <div class="col-md-4 p-2" *ngFor="let p of products">
-                        <app-product [product]=p></app-product>
+                        <app-product [product]=p [trashView]="false"></app-product>
                     </div>
                     <div class="col-md-12" *ngIf="products.length === 0">
                         No Data Found

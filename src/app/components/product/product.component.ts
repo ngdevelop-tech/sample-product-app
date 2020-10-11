@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/shared/models/product.model';
 
 @Component({
@@ -9,9 +10,20 @@ import { Product } from 'src/app/shared/models/product.model';
 export class ProductComponent implements OnInit {
 
     @Input() product: Product;
-    constructor() { }
+    @Input() trashView: boolean;
+    constructor(
+        private productService: ProductService
+    ) { }
 
     ngOnInit(): void {
+    }
+    restore(product) {
+        this.product.is_deleted = false;
+        this.productService.updateProduct(product);
+
+    }
+    remove(product) {
+        this.productService.delete(product);
     }
 
 }

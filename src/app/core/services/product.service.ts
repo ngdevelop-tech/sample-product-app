@@ -37,6 +37,8 @@ export class ProductService {
     }
 
     delete(product: Product) {
+        console.log('delete product : ', JSON.stringify(product));
+
         let index = this.products.findIndex(p => p.product_id === product.product_id);
         if (this.products[index].is_deleted) {
             this.products.splice(index, 1);

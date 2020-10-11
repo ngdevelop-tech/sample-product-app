@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
-import { debounceTime, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, startWith, tap, map } from 'rxjs/operators';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/shared/models/product.model';
 
@@ -22,14 +22,16 @@ export class ProductTrashComponent implements OnInit {
             debounceTime(300)
         );
 
-        this.products$ = combineLatest(
-            [
-                this.productService.trashProducts$,
-                search$
-            ]
-        ).pipe(
+        this.products$ = combineLatest([this.productService.trashProducts$,
+            search$
+        ]).pipe(
             tap(data => console.log(data)),
-            // map(([products, search]))
+            map(([products, search]) => {
+                if (search) {
+                    products = products.filter(p => p.title.toLowerCase().includes((search as string).toLowerCase()));
+                }
+                return products;
+            })
         );
     }
 
