@@ -45,12 +45,16 @@ export class ProductService {
     }
 
     updateProduct(product: Product) {
+        console.log('1111: ', product);
+
         let index = this.products.findIndex(p => p.product_id === product.product_id);
         console.log('index == ', index);
 
         if (index !== -1) {
             this.products[index] = product;
         }
+        console.log('----> ', JSON.stringify(this.products));
+
         this.setProducts(this.products);
         this.utilService.updateProducts(this.products);
     }

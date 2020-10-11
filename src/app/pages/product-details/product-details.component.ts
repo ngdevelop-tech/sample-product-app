@@ -29,7 +29,6 @@ export class ProductDetailsComponent implements OnInit {
                 this.createForm();
             } else {
                 this.mode = 'VIEW';
-
                 this.product = this.productService.getProduct(+id);
             }
         });
@@ -60,15 +59,11 @@ export class ProductDetailsComponent implements OnInit {
 
     submit() {
         if (this.product.product_id) {
-            console.log('this.product : ', JSON.stringify(this.product));
+            console.log('0000;', this.product);
+
             this.productService.updateProduct(this.product);
             this.mode = 'VIEW';
             this.productForm.disable();
-            //   this.appService.editProject(this.project.id, this.projectForm.value).subscribe(response => {
-            //     this.mode = 'VIEW';
-            //     this.project = { ...this.project, ...this.projectForm.value };
-            //     this.projectForm.disable();
-            //   });
         } else {
             this.productService.addProduct(this.product);
             this.router.navigate(['home']);

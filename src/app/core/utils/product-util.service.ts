@@ -7,13 +7,15 @@ export class ProductUtilService {
 
     constructor() {
         this.initializeStorage();
-     }
+    }
 
     initializeStorage() {
         localStorage.setItem('products', JSON.stringify(PRODUCT_LIST));
     }
     updateProducts(products: Product[]) {
-        localStorage.setItem('products', JSON.stringify(PRODUCT_LIST));
+        console.log('updatedProducts : ', products);
+
+        localStorage.setItem('products', JSON.stringify(products));
     }
 
     getProductListFromLocalStorage() {
