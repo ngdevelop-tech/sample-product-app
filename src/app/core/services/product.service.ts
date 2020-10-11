@@ -23,19 +23,13 @@ export class ProductService {
     }
 
     addProduct(product: Product) {
-        console.log('product : ', product);
-
         this.setProducts([...this.products, product]);
         this.utilService.updateProducts(this.products);
     }
 
     getProduct(id) {
-        console.log('id = ', id);
-
-        console.log('this.products = ', this.products);
 
         const data = this.products.filter(e => e.product_id === id);
-        console.log('data : ', data);
 
         if (data.length > 0) {
             return data[0];
@@ -45,24 +39,19 @@ export class ProductService {
     }
 
     updateProduct(product: Product) {
-        console.log('1111: ', product);
-
-        let index = this.products.findIndex(p => p.product_id === product.product_id);
-        console.log('index == ', index);
+        const index = this.products.findIndex(p => p.product_id === product.product_id);
 
         if (index !== -1) {
             this.products[index] = product;
         }
-        console.log('----> ', JSON.stringify(this.products));
 
         this.setProducts(this.products);
         this.utilService.updateProducts(this.products);
     }
 
     delete(product: Product) {
-        console.log('delete product : ', JSON.stringify(product));
 
-        let index = this.products.findIndex(p => p.product_id === product.product_id);
+        const index = this.products.findIndex(p => p.product_id === product.product_id);
         if (this.products[index].is_deleted) {
             this.products.splice(index, 1);
         } else {

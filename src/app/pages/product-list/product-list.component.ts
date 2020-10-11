@@ -45,7 +45,6 @@ export class ProductListComponent implements OnInit {
             rating$,
             inStock$
         ]).pipe(
-            tap(data => console.log(data)),
             map(([products, search, ratings, inStock]) => {
 
                 if (inStock !== null) {
