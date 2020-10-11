@@ -23,12 +23,31 @@ export class ProductService {
     }
 
     addProduct(product: Product) {
+        console.log('product : ', product);
+
         this.setProducts([...this.products, product]);
         this.utilService.updateProducts(this.products);
     }
 
+    getProduct(id) {
+        console.log('id = ', id);
+
+        console.log('this.products = ', this.products);
+
+        const data = this.products.filter(e => e.product_id === id);
+        console.log('data : ', data);
+
+        if (data.length > 0) {
+            return data[0];
+        } else {
+            return null;
+        }
+    }
+
     updateProduct(product: Product) {
         let index = this.products.findIndex(p => p.product_id === product.product_id);
+        console.log('index == ', index);
+
         if (index !== -1) {
             this.products[index] = product;
         }

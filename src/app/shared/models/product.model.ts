@@ -1,5 +1,5 @@
 // Product model class
-export interface Product {
+export class Product {
     product_id: number;
     title: string;
     image_url: string;
@@ -14,7 +14,7 @@ export interface Product {
 }
 
 // Review model class
-export interface Review {
+export class Review {
     id: number;
     review_desc: string;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/shared/models/product.model';
 
 @Component({
@@ -14,21 +15,23 @@ export class ProductDetailsComponent implements OnInit {
     productForm: FormGroup;
     constructor(
         private activatedRoute: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private productService: ProductService) { }
 
     ngOnInit(): void {
 
         this.activatedRoute.paramMap.subscribe(params => {
             const id = params.get('id');
             console.log('id ==', id);
+            if (id === 'new') {
+                this.mode = 'CREATE';
+                this.product = new Product();
+                this.createForm();
+            } else {
+                this.mode = 'VIEW';
 
-            // if (id === 'CREATE') {
-            //     this.mode = 'CREATE';
-            //     this.createForm();
-            // } else {
-            //     this.mode = 'VIEW';
-
-            // }
+                this.product = this.productService.getProduct(+id);
+            }
         });
         this.createForm();
     }
@@ -41,11 +44,13 @@ export class ProductDetailsComponent implements OnInit {
             price: new FormControl(this.product.price),
             rating: new FormControl(this.product.rating),
             in_stock: new FormControl(this.product.in_stock),
-            is_deleted: new FormControl(this.product.is_deleted)
+            is_deleted: new FormControl(this.product.is_deleted),
+            location_available: new FormControl(this.product.location_available),
+            category: new FormControl(this.product.category)
         });
-        // if (this.mode === 'VIEW') {
-        //     this.productForm.disable();
-        // }
+        if (this.mode === 'VIEW') {
+            this.productForm.disable();
+        }
     }
 
     edit() {
@@ -55,22 +60,26 @@ export class ProductDetailsComponent implements OnInit {
 
     submit() {
         if (this.product.product_id) {
+            console.log('this.product : ', JSON.stringify(this.product));
+            this.productService.updateProduct(this.product);
+            this.mode = 'VIEW';
+            this.productForm.disable();
             //   this.appService.editProject(this.project.id, this.projectForm.value).subscribe(response => {
             //     this.mode = 'VIEW';
             //     this.project = { ...this.project, ...this.projectForm.value };
             //     this.projectForm.disable();
             //   });
         } else {
-            //   this.appService.createProject(this.projectForm.value).subscribe(response => {
-            //     this.router.navigate(['/projects']);
-            //   });
+            this.productService.addProduct(this.product);
+            this.router.navigate(['home']);
         }
     }
     cancel() {
-        // this.projectForm.patchValue(this.project);
-        // if (this.project.id) {
-        //   this.mode = 'VIEW';
-        //   this.projectForm.disable();
+        this.productForm.patchValue(this.product);
+        if (this.product.product_id) {
+            this.mode = 'VIEW';
+            this.productForm.disable();
+        }
     }
 }
 
