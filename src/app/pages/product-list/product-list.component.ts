@@ -52,11 +52,11 @@ export class ProductListComponent implements OnInit {
                 }
 
                 if (ratings.length) {
-                    products = products.filter(p => ratings.includes(p.rating))
+                    products = products.filter(p => ratings.includes(p.rating));
                 }
 
                 if (search) {
-                    products = products.filter(p => p.title.toLowerCase().includes((search as string).toLowerCase()))
+                    products = products.filter(p => p.title.toLowerCase().includes((search as string).toLowerCase()));
                 }
 
                 return products;

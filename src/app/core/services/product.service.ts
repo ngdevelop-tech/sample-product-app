@@ -9,7 +9,7 @@ export class ProductService {
     private products: Product[];
     private productsSubject = new BehaviorSubject<Product[]>([]);
 
-    products$ = this.productsSubject.asObservable();
+    products$ = this.productsSubject.asObservable().pipe(map(products => products.filter(p => !p.is_deleted)));
     trashProducts$ = this.products$.pipe(map(products => products.filter(p => p.is_deleted)));
 
     constructor(private utilService: ProductUtilService) {
