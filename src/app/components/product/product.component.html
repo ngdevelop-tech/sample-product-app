@@ -8,7 +8,23 @@
             <span><strong>{{product.price | currency: 'INR'}}</strong></span>
             <span class="rating">{{product.rating}}</span>
         </div>
-        <button type="button" class="btn btn-primary" *ngIf="trashView" (click)="restore(product)">Restore</button>
-        <button type="button" class="btn btn-danger" *ngIf="trashView" (click)="remove(product)">Remove</button>
+        <div class="d-flex justify-content-between">
+
+            <button type="button" class="btn btn-primary" *ngIf="trashView" (click)="restore(product)">Restore</button>
+            <span (click)="$event.stopPropagation();">
+                <button type="button" class="btn btn-danger" *ngIf="trashView" (click)="openModal(softDeleteTemplate,product)">Remove</button>
+            </span>
+        </div>
     </div>
 </div>
+
+<ng-template #softDeleteTemplate>
+    <div class="modal-body text-center pt-6 pb-4">
+        <h3 class="font-weight-light">Please confirm...</h3>
+        <p>Do you really want to delete this product permanently?</p>
+        <div class="pt-5">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">No</button>
+            <button type="button" class="btn btn-danger mr-3" (click)="confirm(modalRef.content)">Yes</button>
+        </div>
+    </div>
+</ng-template>

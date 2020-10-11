@@ -8,13 +8,6 @@ export class Product {
     rating: number;
     location_available: [string];
     category: [string];
-    review?: [Review];
     in_stock: boolean;
     is_deleted?: boolean;
-}
-
-// Review model class
-export class Review {
-    id: number;
-    review_desc: string;
 }

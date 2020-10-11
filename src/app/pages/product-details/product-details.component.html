@@ -56,4 +56,18 @@
     <button class="floating-btn-edit btn btn-primary" tooltip="Edit Product" (click)="openAddProductModal()">
         <i class="fa fa-pencil" aria-hidden="true"></i>
     </button>
+    <button class="floating-btn-trash btn btn-danger" (click)="openModal(softDeleteTemplate,product)" tooltip="Delete Product">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
 </div>
+
+<ng-template #softDeleteTemplate>
+    <div class="modal-body text-center pt-6 pb-4">
+        <h3 class="font-weight-light">Please confirm...</h3>
+        <p>Do you really want to delete this product ?</p>
+        <div class="pt-5">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">No</button>
+            <button type="button" class="btn btn-danger mr-3" (click)="confirm(modalRef.content)">Yes</button>
+        </div>
+    </div>
+</ng-template>

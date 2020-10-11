@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { combineLatest } from 'rxjs';
 import { AddEditProductDialogComponent } from 'src/app/components/dialog/add-edit-product-dialog/add-edit-product-dialog.component';
 import { ProductService } from 'src/app/core/services/product.service';
@@ -16,13 +17,13 @@ export class ProductDetailsComponent implements OnInit {
     mode: string;
     product: Product;
     productForm: FormGroup;
-
+    modalRef: BsModalRef;
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private router: Router,
         private modalService: BsModalService,
-        private productService: ProductService) { }
+        private productService: ProductService,
+        private toastr: ToastrService) { }
 
     ngOnInit(): void {
 
@@ -32,9 +33,32 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
 
-    openAddProductModal(){
-        this.modalService.show(AddEditProductDialogComponent, {class: 'modal-lg', ignoreBackdropClick: true, initialState: {product: this.product}});
+    openAddProductModal() {
+        this.modalService.show(AddEditProductDialogComponent,
+            {
+                class: 'modal-lg',
+                ignoreBackdropClick: true,
+                initialState: {
+                    product: this.product
+                }
+            });
+    }
 
+    // This method open the delete product
+    openModal(template: TemplateRef<any>, obj) {
+        this.modalRef = this.modalService.show(template, { class: 'modal-md' });
+        this.modalRef.content = obj;
+    }
+
+    confirm(obj) {
+        this.modalRef.hide();
+        this.softDelete(obj);
+    }
+
+    softDelete(product) {
+        this.product.is_deleted = true;
+        this.productService.updateProduct(product);
+        this.toastr.success(`${product.title} removed...`);
     }
 }
 

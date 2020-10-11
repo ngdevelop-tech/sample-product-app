@@ -12,18 +12,7 @@ export const PRODUCT_LIST = [
             'mumbai'
         ],
         category: [
-            'device',
             'laptop'
-        ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
         ],
         in_stock: true,
         is_deleted: false
@@ -41,18 +30,7 @@ export const PRODUCT_LIST = [
             'mumbai'
         ],
         category: [
-            'device',
             'laptop'
-        ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
         ],
         in_stock: true,
         is_deleted: false
@@ -73,16 +51,6 @@ export const PRODUCT_LIST = [
             'device',
             'laptop'
         ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
-        ],
         in_stock: false,
         is_deleted: false
     },
@@ -101,16 +69,6 @@ export const PRODUCT_LIST = [
         category: [
             'device',
             'laptop'
-        ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
         ],
         in_stock: true,
         is_deleted: false
@@ -131,16 +89,6 @@ export const PRODUCT_LIST = [
             'device',
             'laptop'
         ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
-        ],
         in_stock: true,
         is_deleted: false
     },
@@ -159,16 +107,6 @@ export const PRODUCT_LIST = [
         category: [
             'device',
             'laptop'
-        ],
-        review: [
-            {
-                id: 1,
-                review_desc: 'nice product'
-            },
-            {
-                id: 2,
-                review_desc: 'good product'
-            }
         ],
         in_stock: true,
         is_deleted: true
