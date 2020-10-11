@@ -10,37 +10,37 @@ export class ProductService {
     private productsSubject = new BehaviorSubject<Product[]>([]);
 
     products$ = this.productsSubject.asObservable();
-    trashProducts$ = this.products$.pipe(map(products=> products.map(p=> p.is_deleted) ));
+    trashProducts$ = this.products$.pipe(map(products => products.filter(p => p.is_deleted)));
 
-    constructor(private utilService: ProductUtilService) { 
+    constructor(private utilService: ProductUtilService) {
         this.products = this.utilService.getProductListFromLocalStorage();
         this.setProducts(this.products);
     }
 
-    setProducts(products: Product[]){
+    setProducts(products: Product[]) {
         this.products = products;
         this.productsSubject.next(products);
     }
 
-    addProduct(product: Product){
+    addProduct(product: Product) {
         this.setProducts([...this.products, product]);
         this.utilService.updateProducts(this.products);
     }
 
-    updateProduct(product: Product){
-        let index = this.products.findIndex(p=> p.product_id === product.product_id);
-        if(index !== -1){
+    updateProduct(product: Product) {
+        let index = this.products.findIndex(p => p.product_id === product.product_id);
+        if (index !== -1) {
             this.products[index] = product;
         }
         this.setProducts(this.products);
         this.utilService.updateProducts(this.products);
     }
-    
-    delete(product: Product){
-        let index = this.products.findIndex(p=> p.product_id === product.product_id);
-        if(this.products[index].is_deleted){
-            this.products.splice(index ,1);
-        }else{
+
+    delete(product: Product) {
+        let index = this.products.findIndex(p => p.product_id === product.product_id);
+        if (this.products[index].is_deleted) {
+            this.products.splice(index, 1);
+        } else {
             this.products[index].is_deleted = true;
         }
         this.setProducts(this.products);

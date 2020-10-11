@@ -7,13 +7,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { ProductTrashComponent } from './pages/product-trash/product-trash.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
         ProductListComponent,
-        ProductComponent
+        ProductComponent,
+        ProductDetailsComponent,
+        ProductTrashComponent
     ],
     imports: [
         BrowserModule,

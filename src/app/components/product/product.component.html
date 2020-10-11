@@ -5,7 +5,7 @@
         <p class="card-text">{{product.desc}}</p>
         <p class="card-text">Price : {{product.price | currency: 'INR'}}</p>
         <p class="card-text">Rating : {{product.rating}}</p>
-        <p class="card-text">In Stock : {{product.in_stock}}</p>
-        <a href="#" class="btn btn-primary">Buy</a>
+        <p class="card-text">{{product.in_stock ? 'In Stock':'Out Of Stock'}}</p>
+        <a [routerLink]="['/product',product.product_id]" class="btn btn-primary">View</a>
     </div>
 </div>

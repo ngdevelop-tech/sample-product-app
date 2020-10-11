@@ -13,7 +13,7 @@ export class ProductListComponent implements OnInit {
 
     products$: Observable<Product[]>;
     searchControl = new FormControl();
-    
+
     ratingFilter = [1, 2, 3, 4, 5];
     productListFormGroup: FormGroup;
 
@@ -22,49 +22,49 @@ export class ProductListComponent implements OnInit {
     ) {
 
         this.productListFormGroup = new FormGroup({
-            rating: new FormArray(this.ratingFilter.map(r=> new FormControl())),
+            rating: new FormArray(this.ratingFilter.map(r => new FormControl())),
             inStock: new FormControl(true),
-        })
+        });
 
-        let search$ = this.searchControl.valueChanges.pipe(
+        const search$ = this.searchControl.valueChanges.pipe(
             startWith(''),
             debounceTime(300)
         );
 
-        let rating$ = this.productListFormGroup.get('rating').valueChanges.pipe(
+        const rating$ = this.productListFormGroup.get('rating').valueChanges.pipe(
             startWith([]),
-            map((rating: []) => rating.map((value, index)=> value ? index + 1: null).filter(d=> d))
-        ) 
+            map((rating: []) => rating.map((value, index) => value ? index + 1 : null).filter(d => d))
+        );
 
-        let inStock$ = this.productListFormGroup.get('inStock').valueChanges.pipe(
+        const inStock$ = this.productListFormGroup.get('inStock').valueChanges.pipe(
             startWith(true)
-        ) 
-             
-        this.products$ = combineLatest([this.productService.products$, 
-                                        search$,
-                                        rating$,
-                                        inStock$
-                                        ]).pipe(
-                                            tap(data => console.log(data) ),
-                                            map(([products, search, ratings, inStock])=> {
+        );
 
-                                                if(inStock !== null){
-                                                    products = products.filter(p=> p.in_stock === inStock);
-                                                }
+        this.products$ = combineLatest([this.productService.products$,
+            search$,
+            rating$,
+            inStock$
+        ]).pipe(
+            tap(data => console.log(data)),
+            map(([products, search, ratings, inStock]) => {
 
-                                                if(ratings.length){
-                                                    products = products.filter(p => ratings.includes(p.rating))
-                                                }
+                if (inStock !== null) {
+                    products = products.filter(p => p.in_stock === inStock);
+                }
 
-                                                if(search){
-                                                     products = products.filter(p=> p.title.toLowerCase().includes((search as string).toLowerCase()))
-                                                }
+                if (ratings.length) {
+                    products = products.filter(p => ratings.includes(p.rating))
+                }
 
-                                                return products;
-                                            })
-                                        )
+                if (search) {
+                    products = products.filter(p => p.title.toLowerCase().includes((search as string).toLowerCase()))
+                }
 
-     }
+                return products;
+            })
+        );
+
+    }
 
     ngOnInit(): void {
         // this.productUtilService.setProdcutListInLocalStorage();
