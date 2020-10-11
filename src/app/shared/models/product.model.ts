@@ -8,9 +8,9 @@ export class Product {
     rating: number;
     location_available: [string];
     category: [string];
-    review: [Review];
+    review?: [Review];
     in_stock: boolean;
-    is_deleted: boolean;
+    is_deleted?: boolean;
 }
 
 // Review model class

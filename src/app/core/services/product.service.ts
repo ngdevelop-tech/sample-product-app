@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ProductUtilService } from '../utils/product-util.service';
 import { Product } from '../../shared/models/product.model';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, of, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
     private products: Product[];
     private productsSubject = new BehaviorSubject<Product[]>([]);
-
+    refresh$ = new BehaviorSubject(undefined);
     products$ = this.productsSubject.asObservable().pipe(map(products => products.filter(p => !p.is_deleted)));
     trashProducts$ = this.productsSubject.asObservable().pipe(map(products => products.filter(p => p.is_deleted)));
 

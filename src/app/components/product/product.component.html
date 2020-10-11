@@ -1,12 +1,13 @@
-<div class="card border-primary">
-    <img class="card-img-top img-szsm" src={{product.image_url}} alt="">
+<div class="card" [routerLink]="['/product',product.product_id]">
+    <span class="badge stock" [ngClass]="product.in_stock ? 'badge-success' : 'badge-warning'">{{product.in_stock ? 'In Stock':'Out Of Stock'}}</span>
+    <img class="card-img-top img-szsm" [src]="product.image_url" [alt]="product.title">
     <div class="card-body">
-        <h4 class="card-title">{{product.title}}</h4>
-        <p class="card-text">{{product.desc}}</p>
-        <p class="card-text">Price : {{product.price | currency: 'INR'}}</p>
-        <p class="card-text">Rating : {{product.rating}}</p>
-        <p class="card-text">{{product.in_stock ? 'In Stock':'Out Of Stock'}}</p>
-        <a *ngIf="!trashView" [routerLink]="['/product',product.product_id]" class="btn btn-primary">View</a>
+        <h4 class="card-title">{{product.title | titlecase}}</h4>
+        <p class="card-text">{{product.desc | titlecase}}</p>
+        <div class="d-flex justify-content-between">
+            <span><strong>{{product.price | currency: 'INR'}}</strong></span>
+            <span class="rating">{{product.rating}}</span>
+        </div>
         <button type="button" class="btn btn-primary" *ngIf="trashView" (click)="restore(product)">Restore</button>
         <button type="button" class="btn btn-danger" *ngIf="trashView" (click)="remove(product)">Remove</button>
     </div>

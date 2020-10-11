@@ -6,9 +6,21 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ProductTrashComponent } from './pages/product-trash/product-trash.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddEditProductDialogComponent } from './components/dialog/add-edit-product-dialog/add-edit-product-dialog.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { ToastrModule } from 'ngx-toastr';
+const NGX_BOOTSTRAP_MODULES = [
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    RatingModule.forRoot()
+]
 
 @NgModule({
     declarations: [
@@ -17,12 +29,17 @@ import { ProductTrashComponent } from './pages/product-trash/product-trash.compo
         ProductListComponent,
         ProductComponent,
         ProductDetailsComponent,
-        ProductTrashComponent
+        ProductTrashComponent,
+        AddEditProductDialogComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ...NGX_BOOTSTRAP_MODULES,
+        ToastrModule.forRoot() 
     ],
     providers: [],
     bootstrap: [AppComponent]

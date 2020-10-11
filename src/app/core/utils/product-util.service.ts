@@ -10,11 +10,11 @@ export class ProductUtilService {
     }
 
     initializeStorage() {
-        localStorage.setItem('products', JSON.stringify(PRODUCT_LIST));
+        if(!localStorage.getItem('products')){
+            localStorage.setItem('products', JSON.stringify(PRODUCT_LIST));
+        }
     }
     updateProducts(products: Product[]) {
-        console.log('updatedProducts : ', products);
-
         localStorage.setItem('products', JSON.stringify(products));
     }
 

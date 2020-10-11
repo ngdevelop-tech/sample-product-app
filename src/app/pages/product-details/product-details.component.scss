@@ -1,0 +1,13 @@
+.back-icon{
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+    // margin-right: 30px;
+}
+
+.floating-btn-edit{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%; 
+}

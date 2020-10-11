@@ -4,6 +4,8 @@ import { combineLatest, Observable } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductService } from '../../core/services/product.service';
 import { debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { AddEditProductDialogComponent } from 'src/app/components/dialog/add-edit-product-dialog/add-edit-product-dialog.component';
 @Component({
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
@@ -18,7 +20,8 @@ export class ProductListComponent implements OnInit {
     productListFormGroup: FormGroup;
 
     constructor(
-        private productService: ProductService
+        private productService: ProductService,
+        private modalService: BsModalService
     ) {
 
         this.productListFormGroup = new FormGroup({
@@ -69,6 +72,10 @@ export class ProductListComponent implements OnInit {
         // this.productUtilService.setProdcutListInLocalStorage();
         // this.savedProducts = this.productUtilService.getProductListFromLocalStorage();
         // this.products = JSON.parse(JSON.stringify(this.savedProducts));
+    }
+
+    openAddProductModal(){
+        this.modalService.show(AddEditProductDialogComponent, {class: 'modal-lg', ignoreBackdropClick: true});
     }
 
 }

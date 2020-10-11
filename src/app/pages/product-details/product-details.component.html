@@ -1,64 +1,59 @@
+<div class="container-fluid">
+    <header class="d-flex">
+        <div class="back-icon">
+            <a class="btn btn-link" routerLink="/home"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
+        </div>
+        <nav aria-label="breadcrumb mb-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a routerLink="/home">Products</a></li>
+                <li class="breadcrumb-item">{{product?.title | titlecase}}</li>
+            </ol>
+        </nav>
+
+    </header>
+</div>
+
+
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">
+        <!-- <h4 class="card-title">
             <button type="button" class="btn btn-success" [routerLink]="['/home']">Show All Products</button>
             <button type="button" class="btn btn-primary text-right" *ngIf="mode==='VIEW'" (click)="edit()">Edit</button>
-        </h4>
+        </h4> -->
 
-        <form class="form" [formGroup]="productForm" *ngIf="productForm">
-            <div class="row">
-                <div class="col-md-2">
-                    <img [src]="product?.image_url" [alt]="product?.title" class="img-thumbnail">
-                </div>
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input formControlName="title" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input formControlName="desc" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="number" formControlName="price" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label>Rating</label>
-                                <input type="number" class="form-control" placeholder="" formControlName="rating">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>In Stock</label>
-                                <input formControlName="in_stock" type="checkbox" class="form-control form-check-input" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label>Is Deleted</label>
-                                <input type="checkbox" class="form-control form-check-input" placeholder="" formControlName="is_deleted">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Location Available</label>
-                                <input formControlName="location_available" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input class="form-control" placeholder="" formControlName="category">
-                            </div>
-                        </div>
-                        <div class="col-md-12" *ngIf="mode !== 'VIEW'">
-                            <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
-                            <button type="cancel" class="btn btn-dark" (click)="cancel()">Cancel</button>
-                        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img [src]="product?.image_url" [alt]="product?.title" class="img-thumbnail">
+            </div>
+            <div class="col-md-8">
+                <p>{{product.desc}}</p>
+                <p><em [ngClass]="product.in_stock ? 'text-success' : 'text-danger'"> {{product.in_stock ? 'In Stock' : 'Out of Stock'}} </em></p>
+                <p>
+                    <strong>Rating : </strong>
+                    <rating name="rating" [ngModel]="product.rating" [readonly]="true"></rating>
+                </p>
+                <p>
+                    <span class="bg-secondary text-white p-2">{{product.price | currency : 'INR'}} </span>
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label> <strong>Location Available</strong></label>
+                        <ul>
+                            <li *ngFor="let l of product.location_available">{{l | titlecase}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <label> <strong>Category</strong></label>
+                        <ul>
+                            <li *ngFor="let c of product.category">{{c | titlecase}}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+    <button class="floating-btn-edit btn btn-primary" tooltip="Edit Product" (click)="openAddProductModal()">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+    </button>
 </div>
